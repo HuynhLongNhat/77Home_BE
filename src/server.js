@@ -5,6 +5,7 @@ import initAuthRoutes from "./routes/authRoutes.js";
 import initBuildingRoutes from "./routes/buildingRoutes.js";
 import initHouserRoutes from "./routes/houseRoutes.js";
 import initWardRoutes from "./routes/wardRoutes.js";
+import initUserRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
 import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
@@ -32,6 +33,7 @@ initAuthRoutes(app);
 initBuildingRoutes(app);
 initHouserRoutes(app);
 initWardRoutes(app);
+initUserRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });
