@@ -2,7 +2,7 @@ require("dotenv").config();
 import express from "express";
 
 import initAuthRoutes from "./routes/authRoutes.js";
-
+import initBuildingRoutes from "./routes/buildingRoutes.js";
 import bodyParser from "body-parser";
 import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
@@ -28,10 +28,11 @@ app.use(cookieParser());
 //  web routes;
 initAuthRoutes(app);
 
+initBuildingRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });
 
 app.listen(PORT, () => {
-  console.log("micoservice is running on the port =  " + PORT);
+  console.log("77Home is running on the port =  " + PORT);
 });
