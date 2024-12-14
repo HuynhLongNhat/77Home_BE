@@ -3,6 +3,7 @@ import express from "express";
 
 import initAuthRoutes from "./routes/authRoutes.js";
 import initBuildingRoutes from "./routes/buildingRoutes.js";
+import initHouserRoutes from "./routes/houseRoutes.js";
 import bodyParser from "body-parser";
 import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
@@ -27,8 +28,8 @@ app.use(cookieParser());
 
 //  web routes;
 initAuthRoutes(app);
-
 initBuildingRoutes(app);
+initHouserRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });

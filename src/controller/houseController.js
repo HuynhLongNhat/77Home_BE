@@ -1,4 +1,4 @@
-const houseService = require("../services/houseService");
+import houseService from "../service/houseService";
 
 const getAllHouses = async (req, res) => {
   try {
@@ -64,13 +64,7 @@ const createHouse = async (req, res) => {
 const updateHouse = async (req, res) => {
   try {
     const data = await houseService.updateHouse(req.params.id, req.body);
-    if (!data.DT) {
-      return res.status(404).json({
-        EM: "Không tìm thấy house",
-        EC: "-1",
-        DT: "",
-      });
-    }
+
     return res.status(200).json({
       EM: data.EM,
       EC: data.EC,
