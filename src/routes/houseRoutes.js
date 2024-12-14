@@ -1,5 +1,5 @@
 import express from "express";
-const houseController = require("../controllers/houseController");
+import houseController from "../controller/houseController";
 
 const router = express.Router();
 

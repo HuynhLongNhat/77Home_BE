@@ -54,7 +54,23 @@ const getHouseById = async (id) => {
 
 const createHouse = async (houseData) => {
   try {
-    const house = await db.houses.create(houseData);
+    const house = await db.houses.create({
+      name: houseData.name,
+      address: houseData.address,
+      yearBuilt: houseData.yearBuilt,
+      description: houseData.description,
+      numberOfFloors: houseData.numberOfFloors,
+      numberRooms: houseData.numberRooms,
+      area: houseData.area,
+      status: houseData.status,
+      avatar: houseData.avatar,
+      longitude: houseData.longitude,
+      latitude: houseData.latitude,
+      region: houseData.region,
+      position: houseData.position,
+      ward_id: houseData.ward_id,
+      owner_id: houseData.owner_id,
+    });
     return {
       EM: "Tạo house mới thành công",
       EC: 0,
