@@ -70,6 +70,16 @@ module.exports = function (sequelize, DataTypes) {
       as: "buildings",
       foreignKey: "createdBy",
     });
+    users.hasMany(models.apartments, {
+      as: "apartments",
+      foreignKey: "owner_id",
+    });
+    users.hasOne(models.appointments, {
+      as: "appointment",
+      foreignKey: "renterId",
+    });
+    users.hasOne(models.contracts, { as: "contract", foreignKey: "renterId" });
+    users.hasMany(models.houses, { as: "houses", foreignKey: "owner_id" });
   };
 
   return users;
