@@ -15,6 +15,7 @@ const getAllBuildings = async () => {
           attributes: ["citizenNumber", "fullName"],
         },
       ],
+      order: [["createdAt", "DESC"]],
     });
     return { EM: "OK", EC: 0, DT: buildings };
   } catch (error) {
@@ -79,7 +80,23 @@ const updateBuilding = async (id, buildingData) => {
     if (!building) {
       return { EM: "Không tìm thấy building", EC: -1, DT: "" };
     }
-    await building.update(buildingData);
+    await building.update({
+      name: buildingData.name,
+      address: buildingData.address,
+      description: buildingData.description,
+      numberOfFloors: buildingData.numberOfFloors,
+      area: buildingData.area,
+      status: buildingData.status,
+      avatar: buildingData.avatar,
+      longitude: buildingData.longitude,
+      latitude: buildingData.latitude,
+      numberOfRooms: buildingData.numberOfRooms,
+      yearBuilt: buildingData.yearBuilt,
+      region: buildingData.region,
+      ownerRepresent: buildingData.ownerRepresent,
+      ward_id: buildingData.ward_id,
+      createdBy: buildingData.createdBy,
+    });
     return { EM: "OK", EC: 0, DT: building };
   } catch (error) {
     return { EM: error.message, EC: -1, DT: "" };
