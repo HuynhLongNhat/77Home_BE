@@ -48,12 +48,13 @@ const updateBuilding = async (req, res) => {
 const deleteBuilding = async (req, res) => {
   try {
     const result = await buildingService.deleteBuilding(req.params.id);
-    if (!result.DT) {
+
+    if (result.EC !== 0) {
       return res.status(404).json(result);
     }
-    res.json(result);
+    return res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ EM: error.message, EC: -1, DT: "" });
+    return res.status(500).json({ EM: error.message, EC: -1, DT: "" });
   }
 };
 
