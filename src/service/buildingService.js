@@ -2,7 +2,20 @@ import db from "../models/index";
 
 const getAllBuildings = async () => {
   try {
-    const buildings = await db.buildings.findAll();
+    const buildings = await db.buildings.findAll({
+      include: [
+        {
+          model: db.wards,
+          as: "ward",
+          attributes: ["id", "name"],
+        },
+        {
+          model: db.users,
+          as: "createdBy_user",
+          attributes: ["citizenNumber", "fullName"],
+        },
+      ],
+    });
     return { EM: "OK", EC: 0, DT: buildings };
   } catch (error) {
     return { EM: error.message, EC: -1, DT: "" };

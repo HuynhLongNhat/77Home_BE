@@ -17,6 +17,7 @@ const initBuildingRoutes = (app) => {
 
   // Xóa building
   router.delete("/:id", buildingController.deleteBuilding);
+
   return app.use("/api/v1/building", router);
 };
 export default initBuildingRoutes;
