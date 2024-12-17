@@ -3,6 +3,9 @@ import db from "../models/index";
 const getAllBuildings = async () => {
   try {
     const buildings = await db.buildings.findAll({
+
+      attributes: { exclude: ["ward_id", "createdBy"] },
+
       include: [
         {
           model: db.wards,
@@ -27,6 +30,7 @@ const getBuildingById = async (id) => {
   try {
     const building = await db.buildings.findOne({
       where: { id: id },
+      attributes: { exclude: ["ward_id", "createdBy"] },
       include: [
         {
           model: db.wards,
@@ -36,7 +40,7 @@ const getBuildingById = async (id) => {
         {
           model: db.users,
           as: "createdBy_user",
-          attributes: ["citizenNumber", "fullName"],
+          attributes: ["citizenNumber", "fullName", "email", "phone"],
         },
       ],
     });
