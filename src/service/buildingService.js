@@ -3,7 +3,9 @@ import db from "../models/index";
 const getAllBuildings = async () => {
   try {
     const buildings = await db.buildings.findAll({
+
       attributes: { exclude: ["ward_id", "createdBy"] },
+
       include: [
         {
           model: db.wards,

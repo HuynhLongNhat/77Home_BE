@@ -3,10 +3,14 @@ import express from "express";
 
 import initAuthRoutes from "./routes/authRoutes.js";
 import initBuildingRoutes from "./routes/buildingRoutes.js";
+import initHouserRoutes from "./routes/houseRoutes.js";
+import initWardRoutes from "./routes/wardRoutes.js";
+import initUserRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
 import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
 import connection from "./config/connectDB.js";
+import initRoomRoutes from "./routes/roomRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8888;
@@ -27,8 +31,11 @@ app.use(cookieParser());
 
 //  web routes;
 initAuthRoutes(app);
-
 initBuildingRoutes(app);
+initHouserRoutes(app);
+initWardRoutes(app);
+initUserRoutes(app);
+initRoomRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });

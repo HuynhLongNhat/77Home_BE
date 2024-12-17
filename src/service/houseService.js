@@ -1,8 +1,21 @@
 import db from "../models/index";
-
+// order: [["createdAt", "DESC"]],
 const getAllHouses = async () => {
   try {
-    let houses = await db.houses.findAll();
+    let houses = await db.houses.findAll({
+      include: [
+        {
+          model: db.wards,
+          as: "ward",
+          attributes: ["id", "name"],
+        },
+        {
+          model: db.users,
+          as: "owner",
+          attributes: ["citizenNumber", "fullName"],
+        },
+      ],
+    });
     if (houses) {
       return {
         EM: "Lấy dữ liệu thành công",
@@ -28,7 +41,21 @@ const getAllHouses = async () => {
 
 const getHouseById = async (id) => {
   try {
-    let house = await db.houses.findByPk(id);
+    let house = await db.houses.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: db.wards,
+          as: "ward",
+          attributes: ["id", "name"],
+        },
+        {
+          model: db.users,
+          as: "owner",
+          attributes: ["citizenNumber", "fullName"],
+        },
+      ],
+    });
     if (house) {
       return {
         EM: "Lấy dữ liệu thành công",
@@ -54,7 +81,23 @@ const getHouseById = async (id) => {
 
 const createHouse = async (houseData) => {
   try {
-    const house = await db.houses.create(houseData);
+    const house = await db.houses.create({
+      name: houseData.name,
+      address: houseData.address,
+      yearBuilt: houseData.yearBuilt,
+      description: houseData.description,
+      numberOfFloors: houseData.numberOfFloors,
+      numberRooms: houseData.numberRooms,
+      area: houseData.area,
+      status: houseData.status,
+      avatar: houseData.avatar,
+      longitude: houseData.longitude,
+      latitude: houseData.latitude,
+      region: houseData.region,
+      position: houseData.position,
+      ward_id: houseData.ward_id,
+      owner_id: houseData.owner_id,
+    });
     return {
       EM: "Tạo house mới thành công",
       EC: 0,
@@ -74,7 +117,23 @@ const updateHouse = async (id, houseData) => {
   try {
     const house = await db.houses.findByPk(id);
     if (house) {
-      await house.update(houseData);
+      await house.update({
+        name: houseData.name,
+        address: houseData.address,
+        yearBuilt: houseData.yearBuilt,
+        description: houseData.description,
+        numberOfFloors: houseData.numberOfFloors,
+        numberRooms: houseData.numberRooms,
+        area: houseData.area,
+        status: houseData.status,
+        avatar: houseData.avatar,
+        longitude: houseData.longitude,
+        latitude: houseData.latitude,
+        region: houseData.region,
+        position: houseData.position,
+        ward_id: houseData.ward_id,
+        owner_id: houseData.owner_id,
+      });
       return {
         EM: "Cập nhật house thành công",
         EC: 0,

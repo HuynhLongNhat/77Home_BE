@@ -1,10 +1,10 @@
-import houseService from "../service/houseService";
+import roomService from "../service/roomService";
 
-const getAllHouses = async (req, res) => {
+const getAllRooms = async (req, res) => {
   try {
-    const data = await houseService.getAllHouses();
+    const data = await roomService.getAllRooms();
     return res.status(200).json({
-      EM: data.EM, // Assuming your service returns EM, EC, and DT
+      EM: data.EM,
       EC: data.EC,
       DT: data.DT,
     });
@@ -18,12 +18,12 @@ const getAllHouses = async (req, res) => {
   }
 };
 
-const getHouseById = async (req, res) => {
+const getRoomById = async (req, res) => {
   try {
-    const data = await houseService.getHouseById(req.params.id);
+    const data = await roomService.getRoomById(req.params.id);
     if (!data.DT) {
       return res.status(404).json({
-        EM: "Không tìm thấy house",
+        EM: "Không tìm thấy room",
         EC: "1",
         DT: "",
       });
@@ -43,9 +43,9 @@ const getHouseById = async (req, res) => {
   }
 };
 
-const createHouse = async (req, res) => {
+const createRoom = async (req, res) => {
   try {
-    const data = await houseService.createHouse(req.body);
+    const data = await roomService.createRoom(req.body);
     return res.status(201).json({
       EM: data.EM,
       EC: data.EC,
@@ -61,9 +61,9 @@ const createHouse = async (req, res) => {
   }
 };
 
-const updateHouse = async (req, res) => {
+const updateRoom = async (req, res) => {
   try {
-    const data = await houseService.updateHouse(req.params.id, req.body);
+    const data = await roomService.updateRoom(req.params.id, req.body);
 
     return res.status(200).json({
       EM: data.EM,
@@ -80,12 +80,12 @@ const updateHouse = async (req, res) => {
   }
 };
 
-const deleteHouse = async (req, res) => {
+const deleteRoom = async (req, res) => {
   try {
-    const data = await houseService.deleteHouse(req.params.id);
+    const data = await roomService.deleteRoom(req.params.id);
     if (!data.DT) {
       return res.status(404).json({
-        EM: "Không tìm thấy house",
+        EM: "Không tìm thấy room",
         EC: "-1",
         DT: "",
       });
@@ -106,9 +106,9 @@ const deleteHouse = async (req, res) => {
 };
 
 module.exports = {
-  getAllHouses,
-  getHouseById,
-  createHouse,
-  updateHouse,
-  deleteHouse,
+  getAllRooms,
+  getRoomById,
+  createRoom,
+  updateRoom,
+  deleteRoom,
 };
