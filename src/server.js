@@ -10,6 +10,7 @@ import bodyParser from "body-parser";
 import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
 import connection from "./config/connectDB.js";
+import initRoomRoutes from "./routes/roomRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8888;
@@ -34,6 +35,7 @@ initBuildingRoutes(app);
 initHouserRoutes(app);
 initWardRoutes(app);
 initUserRoutes(app);
+initRoomRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });
