@@ -3,6 +3,7 @@ import db from "../models/index";
 const getAllHouses = async () => {
   try {
     let houses = await db.houses.findAll({
+      attributes: { exclude: ["ward_id", "owner_id"] },
       include: [
         {
           model: db.wards,
@@ -12,7 +13,7 @@ const getAllHouses = async () => {
         {
           model: db.users,
           as: "owner",
-          attributes: ["citizenNumber", "fullName"],
+          attributes: ["citizenNumber", "fullName", "phone", "email"],
         },
       ],
     });
@@ -43,6 +44,7 @@ const getHouseById = async (id) => {
   try {
     let house = await db.houses.findOne({
       where: { id: id },
+      attributes: { exclude: ["ward_id", "owner_id"] },
       include: [
         {
           model: db.wards,
@@ -52,7 +54,7 @@ const getHouseById = async (id) => {
         {
           model: db.users,
           as: "owner",
-          attributes: ["citizenNumber", "fullName"],
+          attributes: ["citizenNumber", "fullName", "phone", "email"],
         },
       ],
     });
