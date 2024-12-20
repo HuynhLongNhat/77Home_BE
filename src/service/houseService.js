@@ -1,8 +1,9 @@
 import db from "../models/index";
-// order: [["createdAt", "DESC"]],
+
 const getAllHouses = async () => {
   try {
     let houses = await db.houses.findAll({
+      order: [["createdAt", "DESC"]],
       attributes: { exclude: ["ward_id", "owner_id"] },
       include: [
         {
