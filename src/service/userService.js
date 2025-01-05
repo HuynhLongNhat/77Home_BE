@@ -5,12 +5,6 @@ const salt = bcrypt.genSaltSync(10);
 const hashUserPassword = (password) => {
   return bcrypt.hashSync(password, salt);
 };
-
-// getUserByCitizenNumber;
-// createNewUser;
-// updateUser;
-// deleteUser;
-
 const getAllUser = async () => {
   try {
     let users = await db.users.findAll({

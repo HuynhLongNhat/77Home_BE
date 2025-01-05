@@ -11,7 +11,7 @@ import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
 import connection from "./config/connectDB.js";
 import initRoomRoutes from "./routes/roomRoutes.js";
-
+import initAppointmentRoutes from "./routes/appointmentRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 8888;
 
@@ -36,6 +36,7 @@ initHouserRoutes(app);
 initWardRoutes(app);
 initUserRoutes(app);
 initRoomRoutes(app);
+initAppointmentRoutes(app);
 app.use((req, res) => {
   return res.send("404 not found");
 });
