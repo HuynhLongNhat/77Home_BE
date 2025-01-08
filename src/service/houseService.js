@@ -16,6 +16,20 @@ const getAllHouses = async () => {
           as: "owner",
           attributes: ["citizenNumber", "fullName", "phone", "email"],
         },
+        {
+          model: db.rooms,
+          as: "rooms",
+          attributes: [
+            "id",
+            "name",
+            "area",
+            "status",
+            "maxOccupants",
+            "monthlyRent",
+            "description",
+            "avatar",
+          ],
+        },
       ],
     });
     if (houses) {
@@ -56,6 +70,20 @@ const getHouseById = async (id) => {
           model: db.users,
           as: "owner",
           attributes: ["citizenNumber", "fullName", "phone", "email"],
+        },
+        {
+          model: db.rooms,
+          as: "rooms",
+          attributes: [
+            "id",
+            "name",
+            "area",
+            "status",
+            "maxOccupants",
+            "monthlyRent",
+            "description",
+            "avatar",
+          ],
         },
       ],
     });
