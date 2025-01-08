@@ -117,6 +117,13 @@ const registerNewUser = async (data) => {
         DT: "",
       };
     }
+    else {
+      return {
+        EM: "A user is created failed",
+        EC: -1,
+        DT: {},
+      };
+    }
   } catch (error) {
     console.log("check error", error);
     return {
