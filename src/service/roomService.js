@@ -10,6 +10,14 @@ const getAllRooms = async () => {
           model: db.houses,
           as: "house",
           attributes: ["id", "name"],
+          include : [
+            {
+              model: db.users,
+              as: "owner",
+              attributes: ["citizenNumber", "fullName"],
+             
+            }
+          ]
         },
       ],
     });
@@ -46,6 +54,13 @@ const getRoomById = async (id) => {
           model: db.houses,
           as: "house",
           attributes: ["id", "name"],
+          include: [
+            {
+              model: db.users,
+              as: "owner",
+              attributes: ["citizenNumber", "fullName"],
+            },
+          ],
         },
       ],
     });
@@ -82,6 +97,7 @@ const createRoom = async (roomData) => {
       status: roomData.status,
       description: roomData.description,
       house_id: roomData.house_id,
+      avatar: roomData.avatar,
     });
     return {
       EM: "Tạo phòng  mới thành công",
@@ -110,6 +126,7 @@ const updateRoom = async (id, roomData) => {
         status: roomData.status,
         description: roomData.description,
         house_id: roomData.house_id,
+        avatar: roomData.avatar,
       });
       return {
         EM: "Cập nhật room thành công",

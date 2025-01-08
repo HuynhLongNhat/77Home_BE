@@ -83,26 +83,44 @@ const registerNewUser = async (data) => {
     // hash password
     let hashPassword = hashUserPassword(data.password);
 
-    // create new user
+    // Sử dụng transaction để đảm bảo tính nhất quán của dữ liệu
+    const result = await db.sequelize.transaction(async (t) => {
+      // create new user
+      const newUser = await db.users.create(
+        {
+          citizenNumber: data.citizenNumber,
+          email: data.email,
+          phone: data.phone,
+          fullName: data.fullName,
+          password: hashPassword,
+          dateOfBirth: data.dateOfBirth ? data.dateOfBirth : null,
+          gender: data.gender || null,
+        },
+        { transaction: t }
+      );
 
-    await db.users.create({
-      citizenNumber: data.citizenNumber,
-      email: data.email,
-      phone: data.phone,
-      fullName: data.fullName,
-      dateOfBirth: data.dateOfBirth,
-      gender: data.gender,
-      password: hashPassword,
+      await db.user_roles.create(
+        {
+          users_id: newUser.citizenNumber,
+          roles_id: 3,
+        },
+        { transaction: t }
+      );
+
+      return newUser;
     });
-    return {
-      EM: "A user is created success",
-      EC: 0,
-      DT: "",
-    };
+
+    if (result) {
+      return {
+        EM: "A user is created successfully",
+        EC: 0,
+        DT: "",
+      };
+    }
   } catch (error) {
     console.log("check error", error);
     return {
-      EM: "Something wrongs in services...",
+      EM: `Something wrongs in services: ${error.message}`,
       EC: -2,
       DT: "",
     };
@@ -172,6 +190,8 @@ const handleUserLogin = async (data) => {
             email: user.email,
             role: userRole,
             fullName: user.fullName,
+            id : user.citizenNumber
+
           },
         };
       }

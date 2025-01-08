@@ -140,15 +140,20 @@ const updateUser = async (citizenNumber, dataUser) => {
         dateOfBirth: dataUser.dateOfBirth,
         gender: dataUser.gender,
       });
-
       let userRole = await db.user_roles.findOne({
         where: { users_id: citizenNumber },
       });
-
       if (userRole) {
-        await userRole.update({
-          roles_id: dataUser.role_id,
-        });
+        if (userRole.roles_id !== dataUser.role_id) {
+          await db.user_roles.update(
+            {
+              roles_id: dataUser.role_id,
+            },
+            {
+              where: { users_id: citizenNumber },
+            }
+          );
+        }
       } else {
         await db.user_roles.create({
           users_id: citizenNumber,

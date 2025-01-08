@@ -12,6 +12,8 @@ import cookieParser from "cookie-parser";
 import connection from "./config/connectDB.js";
 import initRoomRoutes from "./routes/roomRoutes.js";
 import initAppointmentRoutes from "./routes/appointmentRoutes.js";
+import { createPaymentLink } from "./service/paymentService.js";
+import initPaymentRoutes from "./routes/paymentRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 8888;
 
@@ -37,6 +39,8 @@ initWardRoutes(app);
 initUserRoutes(app);
 initRoomRoutes(app);
 initAppointmentRoutes(app);
+ initPaymentRoutes(app);
+
 app.use((req, res) => {
   return res.send("404 not found");
 });

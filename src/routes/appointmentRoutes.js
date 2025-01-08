@@ -6,8 +6,11 @@ const router = express.Router();
 const initAppointmentRoutes = (app) => {
   // Routes cho Renter
   router.post("/", appointmentController.createAppointment); // Tạo lịch hẹn mới
-  router.get("/:citizenNumber", appointmentController.getRenterAppointments); // Xem lịch hẹn của mình
-  router.put("/:id/abort", appointmentController.abortAppointment); // Hủy lịch hẹn
+  router.get(
+    "/renter/:citizenNumber",
+    appointmentController.getRenterAppointments
+  ); // Xem lịch hẹn của mình
+  router.put("/renter/:id/abort", appointmentController.abortAppointment); // Hủy lịch hẹn
 
   // Routes cho Owner
   router.get(
@@ -19,6 +22,14 @@ const initAppointmentRoutes = (app) => {
 
   // Routes cho Admin
   router.get("/admin/all", appointmentController.getAllAppointments); // Xem tất cả lịch hẹn
+  router.put(
+    "/admin/:id/accept",
+    appointmentController.acceptAppointmentByAdmin
+  ); // Chấp nhận lịch hẹn
+  router.put(
+    "/admin/:id/reject",
+    appointmentController.rejectAppointmentByAdmin
+  ); // Từ chối lịch hẹn
 
   return app.use("/api/v1/appointment", router);
 };

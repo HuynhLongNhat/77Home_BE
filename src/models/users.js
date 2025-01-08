@@ -24,11 +24,11 @@ module.exports = function (sequelize, DataTypes) {
       },
       dateOfBirth: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
       },
       password: {
         type: DataTypes.STRING(255),

@@ -84,7 +84,9 @@ const appointmentController = {
         req.params.id,
         "accept",
         new Date(),
-        null
+        null,
+        null,
+       
       );
       return res.status(200).json({
         EM: data.EM,
@@ -107,7 +109,9 @@ const appointmentController = {
         req.params.id,
         "reject",
         null,
-        req.body.abortedReason
+        null,
+        req.body.rejectedReason,
+      
       );
       return res.status(200).json({
         EM: data.EM,
@@ -125,12 +129,65 @@ const appointmentController = {
   },
 
   abortAppointment: async (req, res) => {
+    console.log("Data", req.body);
     try {
       const data = await appointmentService.updateAppointmentStatus(
         req.params.id,
         "abort",
         null,
-        req.body.abortedReason
+        req.body.abortedReason,
+        null,
+       
+      );
+      return res.status(200).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: data.DT,
+      });
+    } catch (error) {
+      console.log("check error ", error);
+      return res.status(500).json({
+        EM: "Lỗi hệ thống",
+        EC: "-1",
+        DT: "",
+      });
+    }
+  },
+
+ 
+
+  acceptAppointmentByAdmin: async (req, res) => {
+    try {
+      const data = await appointmentService.updateAppointmentStatusByAdmin(
+        req.params.id,
+        "accept",
+        new Date(),
+        null,
+        null
+      );
+      return res.status(200).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: data.DT,
+      });
+    } catch (error) {
+      console.log("check error ", error);
+      return res.status(500).json({
+        EM: "Lỗi hệ thống",
+        EC: "-1",
+        DT: "",
+      });
+    }
+  },
+
+  rejectAppointmentByAdmin: async (req, res) => {
+    try {
+      const data = await appointmentService.updateAppointmentStatusByAdmin(
+        req.params.id,
+        "reject",
+        null,
+        null,
+        req.body.rejectedReason
       );
       return res.status(200).json({
         EM: data.EM,

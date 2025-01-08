@@ -33,6 +33,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(200),
         allowNull: false,
       },
+      avatar: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+      },
       house_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -63,6 +67,10 @@ module.exports = function (sequelize, DataTypes) {
   );
   rooms.associate = (models) => {
     rooms.belongsTo(models.houses, { as: "house", foreignKey: "house_id" });
+     rooms.hasMany(models.appointments, {
+       as: "appointments",
+       foreignKey: "rentEntityId",
+     });
   };
   return rooms;
 };
