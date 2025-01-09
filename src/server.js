@@ -41,12 +41,13 @@ initRoomRoutes(app);
 initAppointmentRoutes(app);
  initPaymentRoutes(app);
 
+ app.get("/hello", (req, res) => {
+   res.send("Hello World");
+ });
 app.use((req, res) => {
   return res.send("404 not found");
 });
-app.get("/hello", (req, res) => {
-  res.send("Hello World");
-});
+
 app.listen(PORT, () => {
   console.log("77Home is running on the port =  " + PORT);
 });
