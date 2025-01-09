@@ -10,13 +10,24 @@
     {
       "src": "/api/v1/(.*)",
       "dest": "src/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "src/server.js"
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "DB_USERNAME": "ukbgjxdu5rceiktm",
+    "DB_PASSWORD": "ukbgjxdu5rceiktm",
+    "DB_DATABASE": "beqsqjjwbvqkbzwqomzb",
+    "DB_HOST": "beqsqjjwbvqkbzwqomzb-mysql.services.clever-cloud.com",
+    "JWT_SECRET": "longnhat",
+    "JWT_EXPIRES_IN": "1h",
+    "PORT": "8080",
+    "REACT_URL": "https://77-home-fe-e9ms.vercel.app",
+    "SMTP_USER": "nhatlong26032@gmail.com",
+    "SMTP_PASS": "qjhwoodraznzedtm",
+    "SMTP_FROM": "nhatlong26032@gmail.com",
+    "SMTP_HOST": "smtp.gmail.com",
+    "SMTP_PORT": "587",
+    "PAYOS_CLIENT_ID": "7af5182d-b4f7-4e8f-87e8-574fbb70881f",
+    "PAYOS_API_KEY": "dc21e9e0-8fd7-4539-99c9-5263d1fda01f",
+    "PAYOS_CHECKSUM_KEY": "82a73aa8718f6d47bad1730f73bfba033c90a6ab22283a8b67974f048d443a62"
   }
 }
