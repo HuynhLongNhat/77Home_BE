@@ -7,18 +7,26 @@ import initHouserRoutes from "./routes/houseRoutes.js";
 import initWardRoutes from "./routes/wardRoutes.js";
 import initUserRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
-import { configCors } from "./config/cors";
 import cookieParser from "cookie-parser";
 import connection from "./config/connectDB.js";
 import initRoomRoutes from "./routes/roomRoutes.js";
 import initAppointmentRoutes from "./routes/appointmentRoutes.js";
 import { createPaymentLink } from "./service/paymentService.js";
+const cors = require("cors");
 import initPaymentRoutes from "./routes/paymentRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 8888;
 
 //config cors
-configCors(app);
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://77-home-fe-e9ms.vercel.app"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+
+app.use(cors(corsOptions));
 // config view engine
 connection();
 //config body-parser

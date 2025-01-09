@@ -211,7 +211,7 @@ const handleUserLogin = async (data) => {
   } catch (error) {
     console.log("check error", error);
     return {
-      EM: "Something wrongs in services...",
+      EM: "Something wrongs in services..." + error.message,
       EC: -2,
       DT: "",
     };
