@@ -24,9 +24,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
-app.use(cors(corsOptions));
 // config view engine
 connection();
 //config body-parser
