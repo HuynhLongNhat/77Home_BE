@@ -1,19 +1,21 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import initAuthRoutes from "./routes/authRoutes.js";
 import initBuildingRoutes from "./routes/buildingRoutes.js";
 import initHouserRoutes from "./routes/houseRoutes.js";
 import initWardRoutes from "./routes/wardRoutes.js";
 import initUserRoutes from "./routes/userRoutes.js";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import connection from "./config/connectDB.js";
 import initRoomRoutes from "./routes/roomRoutes.js";
 import initAppointmentRoutes from "./routes/appointmentRoutes.js";
-import { createPaymentLink } from "./service/paymentService.js";
-const cors = require("cors");
 import initPaymentRoutes from "./routes/paymentRoutes.js";
+import connection from "./config/connectDB.js";
+import { createPaymentLink } from "./service/paymentService.js";
+
 const app = express();
 const PORT = process.env.PORT || 8888;
 
@@ -24,19 +26,18 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// config view engine
+
+// Connect DB
 connection();
+
 //config body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// test connection db
-// connection();
-
 // config cookie-parser
 app.use(cookieParser());
 
-//  web routes;
+//  web routes
 initAuthRoutes(app);
 initBuildingRoutes(app);
 initHouserRoutes(app);
@@ -44,15 +45,21 @@ initWardRoutes(app);
 initUserRoutes(app);
 initRoomRoutes(app);
 initAppointmentRoutes(app);
- initPaymentRoutes(app);
+initPaymentRoutes(app);
 
- app.get("/hello", (req, res) => {
-   res.send("Hello World");
- });
+app.get("/hello", (req, res) => {
+  res.send("Hello World");
+});
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: err.message });
+});
+
+// 404 handler
 app.use((req, res) => {
-  return res.send("404 not found");
+  return res.status(404).send("404 not found");
 });
 
-app.listen(PORT, () => {
-  console.log("77Home is running on the port =  " + PORT);
-});
+export default app;
